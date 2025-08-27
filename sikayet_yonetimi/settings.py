@@ -1,10 +1,10 @@
-from pathlib import Path
 import os
-
+import dj_database_url
+from pathlib import Path
 BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = 'dev-secret'
-DEBUG = True
-ALLOWED_HOSTS = []
+DEBUG = os.getenv("DEBUG", "False").lower() == "true"
+ALLOWED_HOSTS = os.getenv("ALLOWED_HOSTS", "*").split(",")
 
 INSTALLED_APPS = [
     'django.contrib.admin','django.contrib.auth','django.contrib.contenttypes',
@@ -43,8 +43,13 @@ TEMPLATES = [
 WSGI_APPLICATION = 'sikayet_yonetimi.wsgi.application'
 ASGI_APPLICATION = 'sikayet_yonetimi.asgi.application'
 
-DATABASES = {
-    'default': {
+ DATABASES = {
+    "default": dj_database_url.config(
+        default=f"sqlite:///{BASE_DIR / 'db.sqlite3'}",
+        conn_max_age=600,
+    )
+}
+  'default': {
         'ENGINE': 'django.db.backends.sqlite3',
         'NAME': BASE_DIR / 'db.sqlite3',
     }
@@ -65,3 +70,4 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 LOGIN_URL = 'login'
 LOGIN_REDIRECT_URL = 'sikayet_list'
 LOGOUT_REDIRECT_URL = 'login'
+
