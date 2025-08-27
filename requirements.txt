@@ -1,6 +1,7 @@
 Django>=4.2,<6
-Django>=4.2,<6
 gunicorn
 whitenoise
 dj-database-url
+
+
 
