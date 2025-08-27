@@ -1,0 +1,1 @@
+web: gunicorn sikayet_yonetimi.wsgi
