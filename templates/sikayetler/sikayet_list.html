@@ -1,0 +1,8 @@
+<!doctype html><html lang="tr"><meta charset="utf-8"><title>Şikayetler</title>
+<p><a href="{% url 'logout' %}">Çıkış</a> | <a href="{% url 'sikayet_create' %}">Yeni Şikayet</a></p>
+<h1>Şikayetler</h1><ul>
+{% for s in sikayetler %}
+<li><a href="{% url 'sikayet_detail' s.pk %}">{{ s.baslik }}</a> – {{ s.durum }} – {{ s.ilgili_birim }}
+<small>({{ s.olusturma_tarihi|date:"d.m.Y H:i" }})</small></li>
+{% empty %}<li>Kayıt yok.</li>{% endfor %}</ul>
+</html>
